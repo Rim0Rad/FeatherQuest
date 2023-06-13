@@ -34,6 +34,7 @@ useEffect(() => {
 
   return (
     <View style={styles.container}>
+
       <View style={styles.userInfocontainer}>
       <Image source={{uri: user.profilePic}} style={styles.profilePic} />
       <View style={styles.userInfo}>
