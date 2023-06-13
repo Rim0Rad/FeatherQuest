@@ -7,6 +7,7 @@ import {
   ScrollView,
   Dimensions,
   Button,
+  TouchableOpacity,
 } from "react-native";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
@@ -48,12 +49,19 @@ export default Species = ({ navigation }) => {
         {birds.map((bird, index) => (
           <View key={index} style={styles.birdCard}>
             <Text style={styles.birdName}>{bird.common_name}</Text>
-            <Image
-              source={{
-                uri: bird.bird_image_url,
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Bird", bird);
+                // console.log(bird);
               }}
-              style={styles.image}
-            />
+            >
+              <Image
+                source={{
+                  uri: bird.bird_image_url,
+                }}
+                style={styles.image}
+              />
+            </TouchableOpacity>
           </View>
         ))}
       </View>
