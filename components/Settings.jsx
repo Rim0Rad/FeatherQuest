@@ -8,7 +8,10 @@ import {
   View,
 } from "react-native";
 import { db } from "../firebaseConfig";
-import { useEffect, useState } from "react";
+import { auth } from "../firebaseConfig";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../utils/UserContext";
+import { getUserData } from "../utils/pullUserInfo";
 import {
   collection,
   query,
@@ -16,9 +19,12 @@ import {
   getDocs,
   doc,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 
 export default Settings = ({ navigation }) => {
+  // const { globalUser, setGlobalUser } = useContext(UserContext);
+
   const [user, setUser] = useState({});
   const [screenNameUpdated, setScreenNameUpdated] = useState(false);
   const [firstNameUpdated, setFirstNameUpdated] = useState(false);
@@ -37,21 +43,23 @@ export default Settings = ({ navigation }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const q = query(collection(db, "users"), where("id", "==", 4));
-        const querySnapshot = await getDocs(q);
-        const userData = querySnapshot.docs.map((doc) => doc.data());
-        setUser(userData[0]);
+        const current_user = auth.currentUser;
+        onSnapshot(doc(db, "users", current_user.uid), (doc) => {
+          setUser(doc.data());
+        });
       } catch (error) {
         console.log(error);
       }
     };
 
     getUser();
-  }, [user, handleSubmit]);
+  }, [handleSubmit]);
 
   const updateScreenName = async () => {
     try {
-      const userRef = doc(db, "users", "5pfZtCfrTQJa0sF6nNAT");
+      const current_user = auth.currentUser;
+
+      const userRef = doc(db, "users", current_user.uid);
       await updateDoc(userRef, {
         screen_name: newScreenName,
       });
@@ -65,7 +73,9 @@ export default Settings = ({ navigation }) => {
 
   const updatedFirstName = async () => {
     try {
-      const userRef = doc(db, "users", "5pfZtCfrTQJa0sF6nNAT");
+      const current_user = auth.currentUser;
+
+      const userRef = doc(db, "users", current_user.uid);
       await updateDoc(userRef, {
         first_name: newFirstName,
       });
@@ -78,7 +88,9 @@ export default Settings = ({ navigation }) => {
 
   const updatedLastName = async () => {
     try {
-      const userRef = doc(db, "users", "5pfZtCfrTQJa0sF6nNAT");
+      const current_user = auth.currentUser;
+
+      const userRef = doc(db, "users", current_user.uid);
       await updateDoc(userRef, {
         last_name: newLastName,
       });
@@ -91,7 +103,9 @@ export default Settings = ({ navigation }) => {
 
   const updatedLocation = async () => {
     try {
-      const userRef = doc(db, "users", "5pfZtCfrTQJa0sF6nNAT");
+      const current_user = auth.currentUser;
+
+      const userRef = doc(db, "users", current_user.uid);
       await updateDoc(userRef, {
         location: newLocation,
       });
@@ -102,26 +116,46 @@ export default Settings = ({ navigation }) => {
     }
   };
 
-  function handleSubmit() {
-    if (newScreenNameValid && screenNameUpdated) {
-      updateScreenName();
-      setScreenNameUpdated(false);
+  const handleSubmit = async () => {
+    try {
+      if (screenNameUpdated) {
+        if (newScreenNameValid) {
+          await updateScreenName();
+          setScreenNameUpdated(false);
+        } else {
+          throw new Error("Invalid screen name");
+        }
+      }
+      if (firstNameUpdated) {
+        if (newFirstNameValid) {
+          await updatedFirstName();
+          setFirstNameUpdated(false);
+        } else {
+          throw new Error("Invalid First name");
+        }
+      }
+      if (lastNameUpdated) {
+        if (newLastNameValid) {
+          await updatedLastName();
+          setLastNameUpdated(false);
+        } else {
+          throw new Error("Invalid Last name");
+        }
+      }
+      if (locationUpdated) {
+        if (newLocationValid) {
+          await updatedLocation();
+          setLocationUpdated(false);
+        } else {
+          throw new Error("Invalid Last name");
+        }
+      }
+      alert("Details successfully updated");
+    } catch (err) {
+      console.log(err);
+      alert("Invalid entries. Please update the above fields.");
     }
-    if (newFirstNameValid && firstNameUpdated) {
-      updatedFirstName();
-      setFirstNameUpdated(false);
-    }
-    if (newLastNameValid && lastNameUpdated) {
-      updatedLastName();
-      setLastNameUpdated(false);
-    }
-    if (newLocationValid && locationUpdated) {
-      updatedLocation();
-      setLocationUpdated(false);
-    } else {
-      alert("Invalid entries please update the above fields.");
-    }
-  }
+  };
 
   return (
     <View style={styles.container}>
