@@ -1,9 +1,6 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
-import { getUserData } from "../utils/pullUserInfo";
+import { StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from "react-native";
 import { useEffect, useState, useContext } from "react";
 import UserPerchAlerts from "./UserPerchAlerts";
-import { auth } from "../firebaseConfig";
 import { UserContext } from "../utils/UserContext";
 
 
@@ -12,7 +9,7 @@ import { UserContext } from "../utils/UserContext";
 let width = Dimensions.get("window").width;
 
 export default Profile = ({ navigation }) => {
-  const {globalUser, setGlobalUser} = useContext(UserContext)
+  const {globalUser} = useContext(UserContext)
   const [user, setUser] = useState({})
 
 useEffect(() => {
@@ -27,18 +24,35 @@ useEffect(() => {
     })
 }, [globalUser])
   return (
-    <View style={styles.container}>
-      <View style={styles.userInfocontainer}>
+<View style={styles.container}>
+
+  <View style={styles.userInfocontainer}>
+  <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Settings");
+          }}
+          title="Settings"
+          style={styles.settingsContainer}
+        >
+          <Image
+            source={require("../assets/Settings.png")}
+            style={styles.settingsImageContainer}
+          />
+        </TouchableOpacity>
+
       <Image source={{uri: user.profile_image_url}} style={styles.profilePic} />
+
       <View style={styles.userInfo}>
-        <Text style={styles.textStyling}>Forename - {user.first_name}</Text>
-        <Text style={styles.textStyling}>Surname - {user.last_name}</Text>
-        <Text style={styles.textStyling}>Region - {user.location}</Text>
-        <Text style={styles.textStyling}>Username - {user.first_name}e</Text>
+          <Text style={styles.textStyling}>Forename - {user.first_name}</Text>
+          <Text style={styles.textStyling}>Surname - {user.last_name}</Text>
+          <Text style={styles.textStyling}>Region - {user.location}</Text>
+          <Text style={styles.textStyling}>Username - {user.first_name}e</Text>
       </View>
-      </View>
+
+  </View>
+
       <UserPerchAlerts birds = {user.perch_list} user={user} navigation={navigation}/>
-    </View>
+</View>
   );
 };
 
@@ -63,6 +77,17 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 200,
     top: 10,
+  },
+  settingsContainer:{
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: 50,
+    height: 50,
+  },
+  settingsImageContainer:{
+    width: 50,
+    height: 50,
   },
   profilePic: {
     position:'absolute',
@@ -96,9 +121,8 @@ const styles = StyleSheet.create({
     width: width,
     flex: 1,
     flexDirection:'row', 
-    // flexWrap:'wrap',
-
-  }
+    // flexWrap:'wrap'
+  },
 });
 
 
