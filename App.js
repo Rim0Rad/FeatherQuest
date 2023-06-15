@@ -15,76 +15,78 @@ import { UserContext } from "./utils/UserContext.js";
 import LoginScreen from "./components/LoginScreen.jsx";
 import { useState } from "react";
 
+import SignUp from "./components/SignUp.jsx";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [globalUser, setGlobalUser] = useState('')
+  const [globalUser, setGlobalUser] = useState("");
   return (
-    <UserContext.Provider value={{globalUser,setGlobalUser}}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+    <UserContext.Provider value={{ globalUser, setGlobalUser }}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
 
-        <Stack.Screen
-          name="Home"
-          component={HomePage}
-          options={({ navigation }) => ({
-            header: () => <NavigationBar navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={({ navigation }) => ({
-            header: () => <NavigationBar navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Maps"
-          component={Maps}
-          options={({ navigation }) => ({
-            header: () => <NavigationBar navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Species"
-          component={Species}
-          options={({ navigation }) => ({
-            header: () => <NavigationBar navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={({ navigation }) => ({
-            header: () => <NavigationBar navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="Sighting"
-          component={Sighting}
-          options={({ navigation }) => ({
-            header: () => <NavigationBar navigation={navigation} />,
-          })}
-        />
-        <Stack.Screen
-          name="SightingList"
-          component={SightingList}
-          options={({ navigation }) => ({
-            header: () => <NavigationBar navigation={navigation} />,
-          })}
-        />
+          <Stack.Screen
+            name="Home"
+            component={HomePage}
+            options={({ navigation }) => ({
+              header: () => <NavigationBar navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={({ navigation }) => ({
+              header: () => <NavigationBar navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen
+            name="Maps"
+            component={Maps}
+            options={({ navigation }) => ({
+              header: () => <NavigationBar navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen
+            name="Species"
+            component={Species}
+            options={({ navigation }) => ({
+              header: () => <NavigationBar navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={({ navigation }) => ({
+              header: () => <NavigationBar navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen
+            name="Sighting"
+            component={Sighting}
+            options={({ navigation }) => ({
+              header: () => <NavigationBar navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen
+            name="SightingList"
+            component={SightingList}
+            options={({ navigation }) => ({
+              header: () => <NavigationBar navigation={navigation} />,
+            })}
+          />
 
-        <Stack.Screen
-          name="Bird"
-          component={Bird}
-          options={({ navigation }) => ({
-            header: () => <NavigationBar navigation={navigation} />,
-          })}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name="Bird"
+            component={Bird}
+            options={({ navigation }) => ({
+              header: () => <NavigationBar navigation={navigation} />,
+            })}
+          />
+          <Stack.Screen name="SignUp" component={SignUp} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </UserContext.Provider>
   );
 }

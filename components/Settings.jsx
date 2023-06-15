@@ -47,7 +47,7 @@ export default Settings = ({ navigation }) => {
     };
 
     getUser();
-  }, [user, handleSubmit]);
+  }, [user]);
 
   const updateScreenName = async () => {
     try {

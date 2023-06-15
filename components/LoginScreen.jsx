@@ -20,6 +20,7 @@ import { auth } from "../firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
+import SignUp from "./SignUp";
 
 export default LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -104,7 +105,7 @@ export default LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={handleSignUp}
+          onPress={() => navigation.navigate("SignUp")}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Sign Up!</Text>
