@@ -20,30 +20,10 @@ import UserPerchAlerts from "./components/UserPerchAlerts.jsx";
 import SignUp from "./components/SignUp.jsx";
 import ForgotPassword from "./components/ForgotPassword.jsx";
 
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
-
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [fontsLoaded] = useFonts({
-    Virgil: require("./assets/fonts/Virgil.ttf"),
-  });
   const [globalUser, setGlobalUser] = useState();
-  useEffect(() => {
-    async function prepare() {
-      await SplashScreen.preventAutoHideAsync();
-    }
-    prepare();
-  }, []);
-
-  if (!fontsLoaded) {
-    return <Text>Loading...</Text>;
-  } else {
-    SplashScreen.hideAsync();
-  }
-
   return (
     <UserContext.Provider value={{ globalUser, setGlobalUser }}>
       <NavigationContainer>

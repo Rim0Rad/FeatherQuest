@@ -109,18 +109,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    fontFamily: "Virgil",
     textAlign: "center",
     marginTop: 10,
     marginBottom: 10,
+    fontWeight: "bold",
     fontSize: 40,
   },
   birdCard: {
     marginBottom: 20,
   },
   birdName: {
-    fontFamily: "Virgil",
     textAlign: "center",
+    fontWeight: "bold",
     fontSize: 25,
     marginBottom: 5,
   },

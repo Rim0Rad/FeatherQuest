@@ -126,10 +126,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#5e7975",
   },
   title: {
-    fontFamily: "Virgil",
     fontSize: 30,
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: "center",
+    textAlignVertical: "center",
   },
   iconContainer: {
     justifyContent: "center",
@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   input: {
-    fontFamily: "Virgil",
     backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
@@ -167,13 +166,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   buttonText: {
-    fontFamily: "Virgil",
     color: "white",
+    fontWeight: "700",
     fontSize: 16,
   },
   buttonOutlineText: {
-    fontFamily: "Virgil",
     color: "#0782F9",
+    fontWeight: "700",
     fontSize: 16,
   },
 });

@@ -288,7 +288,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputGroup: {
-    fontFamily: "Virgil",
     padding: 10,
     marginBottom: 20,
     width: "100%",
@@ -298,12 +297,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputText: {
-    fontFamily: "Virgil",
     marginLeft: 10,
     color: "white",
   },
   header: {
-    fontFamily: "Virgil",
     color: "white",
     marginTop: 20,
     marginBottom: 20,

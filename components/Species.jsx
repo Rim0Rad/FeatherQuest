@@ -18,7 +18,7 @@ export default Species = ({ navigation }) => {
   const [birds, setBirds] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
     const fetchBirds = async () => {
       try {
@@ -91,11 +91,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   header: {
-    fontFamily: "Virgil",
+    color: "white",
     textAlign: "center",
     marginTop: 10,
-    marginBottom: 10,
-    fontSize: 40,
+    marginBottom: 0,
+    fontWeight: "bold",
+    fontSize: 30,
   },
   birdCard: {
     width: "33%",
@@ -108,9 +109,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#AAC0AA",
   },
   birdName: {
-    fontFamily: "Virgil",
+    color: "white",
     textAlign: "center",
-    fontSize: 25,
+    fontSize: 14,
     marginBottom: 5,
   },
   buttonContainer: {

@@ -62,14 +62,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   birdName: {
-    fontFamily: "Virgil",
     textAlign: "center",
+    fontWeight: "bold",
     fontSize: 25,
     marginBottom: 5,
   },
   birdInfo: {
-    fontFamily: "Virgil",
     textAlign: "center",
+    fontWeight: "bold",
     fontSize: 15,
     marginBottom: 5,
   },
