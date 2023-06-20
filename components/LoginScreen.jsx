@@ -1,5 +1,5 @@
 import { auth } from "../firebaseConfig";
-import {signInWithEmailAndPassword} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -10,11 +10,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import { styles } from '../styles/style.js'
-
+import { styles } from "../styles/style.js";
 
 export default LoginScreen = ({ navigation }) => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation1 = useNavigation();
@@ -31,14 +29,15 @@ export default LoginScreen = ({ navigation }) => {
 
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredentials) => {
-      alert("Logged in");
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
+      .then((userCredentials) => {
+        // alert("Logged in");
+        console.log(`User logged in`);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
-  
+
   return (
     <KeyboardAvoidingView style={styles.pageContainer} behavior="padding">
       <Text style={styles.titleText}>WELCOME TO FEATHER QUEST!</Text>
@@ -64,11 +63,8 @@ export default LoginScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity 
-          onPress={handleLogin} 
-          style={styles.button}
-          >
-            <Text style={styles.buttonText}>Login</Text>
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
