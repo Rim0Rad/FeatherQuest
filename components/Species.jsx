@@ -11,7 +11,15 @@ import {
 } from "react-native";
 import { db } from "../firebaseConfig";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getCountFromServer,
+  getDocs,
+  limit,
+  query,
+  startAfter,
+  orderBy,
+} from "firebase/firestore";
 import CustomButton from "./CustomButton";
 import { styles, textStyles } from "../styles/style.js";
 
@@ -23,15 +31,43 @@ export default Species = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredList, setFilteredList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [reachedEnd, setReachedEnd] = useState(false);
 
   useEffect(() => {
     const fetchBirds = async () => {
       try {
         setLoading(true);
-        const querySnapshot = await getDocs(collection(db, "birds"));
-        const birdData = querySnapshot.docs.map((doc) => doc.data());
-        setBirds(birdData);
-        setFilteredList(birdData);
+        const speciesRef = collection(db, "birds");
+        const speciesSnapshot = await getCountFromServer(speciesRef);
+        const totalSpecies = speciesSnapshot.data().count;
+        const q = query(
+          speciesRef,
+          orderBy("common_name", "asc"),
+          limit(currentPage * 9)
+        );
+        if (currentPage === 1) {
+          const querySnapshot = await getDocs(q);
+          const birdData = querySnapshot.docs.map((doc) => doc.data());
+          setBirds(birdData);
+          setFilteredList(birdData);
+        } else {
+          const startAfterDoc = birds[birds.length - 1];
+          const qWithPagination = query(
+            speciesRef,
+            orderBy("common_name", "asc"),
+            startAfter(startAfterDoc.common_name),
+            limit(currentPage * 9)
+          );
+          const querySnapshot = await getDocs(qWithPagination);
+          const birdData = querySnapshot.docs.map((doc) => doc.data());
+          setBirds((prevBirds) => [...prevBirds, ...birdData]);
+          setFilteredList((prevList) => [...prevList, ...birdData]);
+        }
+
+        if (currentPage * 9 >= totalSpecies) {
+          setReachedEnd(true);
+        }
       } catch (error) {
         console.log("Error fetching birds:", error.message);
         setError("Failed to fetch bird data. Please try again later.");
@@ -41,7 +77,7 @@ export default Species = ({ navigation }) => {
     };
 
     fetchBirds();
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     setFilteredList(
@@ -51,9 +87,24 @@ export default Species = ({ navigation }) => {
           .includes(searchQuery.toLowerCase());
       })
     );
-  }, [searchQuery]);
+  }, [searchQuery, birds]);
+
+  function isCloseToBottom({ layoutMeasurement, contentOffset, contentSize }) {
+    return (
+      layoutMeasurement.height + contentOffset.y >= contentSize.height - 20
+    );
+  }
+
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView
+      style={styles.scrollView}
+      onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent) && !loading && !reachedEnd) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
+      }}
+      scrollEventThrottle={400}
+    >
       <View style={styles.pageContainer}>
         <View style={styles.titleContainer}>
           <Text style={textStyles.titleText}>All Birds</Text>
@@ -107,7 +158,11 @@ export default Species = ({ navigation }) => {
                   style={[styles.birdCardImage]}
                 />
               </View>
-              <Text style={textStyles.text} numberOfLines={2} ellipsizeMode="tail">
+              <Text
+                style={textStyles.text}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
                 {bird.common_name}
               </Text>
             </TouchableOpacity>
