@@ -181,23 +181,6 @@ export const styles = StyleSheet.create({
   imagePreview: {
     ...StyleSheet.absoluteFillObject,
   },
-  successContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "#DFF0D8",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderTopWidth: 2,
-    borderTopColor: "#4CAE4C",
-  },
-  resetText: {
-    color: "#4CAE4C",
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
 
   /* Profile */
   container: {
@@ -330,6 +313,12 @@ export const textStyles = {
     color: purple,
     fontSize: 18,
   },
+  resetText: {
+    color: "#4CAE4C",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 };
 
 const profilePicSize = 100;
@@ -371,6 +360,17 @@ export const profileStyles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 10,
     borderColor: lightGreen,
+  },
+  successContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#DFF0D8",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderTopWidth: 2,
+    borderTopColor: "#4CAE4C",
   },
 });
 
