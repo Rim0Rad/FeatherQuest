@@ -20,7 +20,7 @@ export default TimeSelector = ( { onChange, setTimeIsSet,  time, setTime } ) => 
                     setShowTime(false)
                     setTime(date.toLocaleTimeString())
                     setTimeIsSet(true)
-                    onChange(event, date)
+                    // onChange(event, date)
                 }}
             />} 
         </View>
