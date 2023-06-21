@@ -36,15 +36,19 @@ export const styles = StyleSheet.create({
   scrollViewHorizontal: {
     borderWidth: devBoder,
     flex: 1,
+    minHeight: 180,
     paddingVertical: 20,
   },
+
   pageContainer: {
     borderWidth: devBoder,
     flex: 1,
     alignItems: "center",
+    alignContent: "center",
     backgroundColor: darkGreen,
     paddingBottom: 70, //necesasary for scroll view
   },
+
   centeredContainer: {
     borderWidth: devBoder,
     ...StyleSheet.absoluteFillObject,
@@ -91,13 +95,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     minWidth: "33%",
     maxWidth: "33%",
-    height: 180,
+    height: 200,
     marginBottom: 10,
     borderWidth: 1,
     borderColor: salmon,
     backgroundColor: lightGreen,
-    borderRadius: 5,
-    padding: 1,
+    borderRadius: 11,
+    // padding: 1,
   },
   birdCardContainerHorizontal: {
     minWidth: 110,
@@ -109,6 +113,22 @@ export const styles = StyleSheet.create({
     backgroundColor: lightGreen,
     borderRadius: 10,
     padding: 1,
+  },
+  /* Images */
+  birdCardImageContainer: {
+    width: "100%",
+    height: "80%",
+    borderWidth: 2,
+    borderRadius: 10,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderColor: darkGreen,
+    overflow: "hidden",
+  },
+  birdCardImage: {
+    aspectRatio: 1,
+    height: "100%",
+    width: "100%",
   },
   imagePreviewContainer: {
     margin: 10,
@@ -147,38 +167,145 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 2,
     borderWidth: 2,
+    shadowRadius: 100,
   },
   disabledButton: {
     opacity: 0.5,
   },
-  /* text */
+  icon: {
+    width: 60,
+    height: 60,
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  imagePreview: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  successContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "#DFF0D8",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderTopWidth: 2,
+    borderTopColor: "#4CAE4C",
+  },
+  resetText: {
+    color: "#4CAE4C",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+
+  /* Profile */
+  container: {
+    borderWidth: devBoder,
+    flex: 1,
+    padding: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+  },
+  containerFilledLight: {
+    borderWidth: devBoder,
+    flex: 1,
+    width: "100%",
+    padding: 5,
+    margin: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderWidth: 3,
+    backgroundColor: lightGreen,
+  },
+  containerFilledLightH: {
+    borderWidth: devBoder,
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    padding: 5,
+    margin: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderWidth: 3,
+    backgroundColor: lightGreen,
+  },
+
+  containerFilledDark: {
+    borderWidth: devBoder,
+    flex: 1,
+    width: "100%",
+    padding: 5,
+    margin: 2,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: salmon,
+    backgroundColor: purple,
+  },
+});
+
+export const textStyles = {
+  textContainer: {
+    borderWidth: devBoder,
+    flex: 1,
+    backgroundColor: lightGreen,
+    borderRadius: 10,
+    margin: 2,
+  },
   titleText: {
     fontFamily: font,
     fontSize: 30,
     textAlign: "center",
     color: textWhite,
     shadowColor: "black",
-    // shadowOffset: 10,
     shadowRadius: 10,
     textShadowColor: lightGreen,
     textShadowRadius: 10,
   },
   text: {
-    fontFamily: "Virgil",
+    fontFamily: font,
     textAlign: "center",
     fontSize: 12,
   },
+  textLeft: {
+    fontFamily: font,
+    textAlign: "left",
+    paddingHorizontal: 20,
+    fontSize: 12,
+  },
   textWhite: {
-    fontFamily: "Virgil",
+    fontFamily: font,
     textAlign: "center",
     fontSize: 12,
     color: "white",
   },
   textMedium: {
-    fontFamily: "Virgil",
+    fontFamily: font,
     textAlign: "center",
     fontSize: 18,
     color: textWhite,
+  },
+  textMediumBlack: {
+    fontFamily: font,
+    textAlign: "center",
+    fontSize: 18,
+  },
+  textMediumBlackRight: {
+    fontFamily: font,
+    fontSize: 18,
+    textAlign: "right",
+    paddingHorizontal: 20,
+  },
+  textMediumBlackLeft: {
+    fontFamily: font,
+    fontSize: 18,
+    textAlign: "left",
+    paddingHorizontal: 20,
   },
   buttonText: {
     fontFamily: font,
@@ -190,6 +317,8 @@ export const styles = StyleSheet.create({
     fontFamily: font,
     color: textWhite,
     fontSize: 18,
+    textShadowRadius: 10,
+    textShadowColor: lightGreen,
   },
   loadingText: {
     fontFamily: font,
@@ -198,53 +327,41 @@ export const styles = StyleSheet.create({
   },
   warningText: {
     fontFamily: font,
-    color: textBlack,
+    color: purple,
     fontSize: 18,
   },
-  /* Images */
-  birdCardImageContainer: {
-    width: "100%",
-    height: "80%",
-    borderRadius: 10,
-    borderColor: darkGreen,
+};
+
+const profilePicSize = 100;
+export const profileStyles = StyleSheet.create({
+  avatarContainer: {
+    borderWidth: devBoder,
+    width: profilePicSize,
+    height: profilePicSize,
+    maxHeight: profilePicSize,
+    maxWidth: profilePicSize,
+    minHeight: profilePicSize,
+    minWidth: profilePicSize,
+    borderWidth: 4,
+    borderColor: salmon,
+    borderRadius: 1000,
     overflow: "hidden",
   },
-  birdCardImage: {
-    aspectRatio: 1,
-    height: "100%",
-    width: "100%",
-  },
-  /* Profile */
-  container: {
-    flex: 1,
-  },
-  horizontalContainer: {
+  userInfoConatainer: {
     borderWidth: devBoder,
-    flex: 2,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 5,
-  },
-  horizontalBorderedContainer: {
-    borderWidth: devBoder,
-    flex: 1,
-    maxHeight: "30%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    marginBottom: 10,
     padding: 5,
     borderWidth: 3,
     borderRadius: 10,
     borderColor: lightGreen,
   },
-  verticalContainer: {
+  perchContainer: {
     borderWidth: devBoder,
     flex: 1,
+    minWidth: SCREEN_WIDTH,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
@@ -254,50 +371,6 @@ export const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 10,
     borderColor: lightGreen,
-  },
-  icon: {
-    width: 60,
-    height: 60,
-    alignSelf: "center",
-    justifyContent: "center",
-  },
-  textContainer: {
-    borderWidth: devBoder,
-    flex: 1,
-    backgroundColor: lightGreen,
-    borderRadius: 10,
-    margin: 2,
-    textAlign: "justify",
-  },
-  avatarContainer: {
-    borderWidth: devBoder,
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    borderWidth: 2,
-    borderColor: salmon,
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-  imagePreview: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  successContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "#dff0d8",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderTopWidth: 2,
-    borderTopColor: "#4cae4c",
-  },
-  resetText: {
-    color: "#4cae4c",
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
   },
 });
 
@@ -329,7 +402,8 @@ export const smallMapStyles = StyleSheet.create({
     borderWidth: 3,
     borderColor: lightGreen,
     borderRadius: 10,
-    width: "80%",
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
   },
   mapContainer: {
     flex: 1,

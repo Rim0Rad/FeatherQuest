@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import { styles } from "../styles/style.js";
+import { styles, textStyles } from "../styles/style.js";
 
 export default LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");

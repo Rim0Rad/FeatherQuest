@@ -16,7 +16,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import NavToLoginBar from "./NavToLoginBar.jsx";
 import * as ImagePicker from "expo-image-picker";
-import { styles } from "../styles/style.js";
+import { styles, textStyles } from "../styles/style.js";
 
 const SignUp = ({ navigation }) => {
   const [screenName, setScreenName] = useState("");

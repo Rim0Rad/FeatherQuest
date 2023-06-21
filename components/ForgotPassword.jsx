@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { styles } from "../styles/style.js";
+import { styles, textStyles } from "../styles/style.js";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
