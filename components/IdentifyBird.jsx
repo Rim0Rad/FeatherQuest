@@ -45,7 +45,6 @@ const IdentifyBird = ({ navigation }) => {
     })();
   }, []);
 
-
   const submitToGoogle = async () => {
     try {
       setUploading(true);
@@ -178,41 +177,59 @@ const IdentifyBird = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {googleResponse && (
+        {googleResponse !== null ? (
           <View>
+            {googleResponse.responses[0].webDetection !== undefined ? (
+              <View>
+                <Text style={styles.bestGuess}>
+                  Our best guess is:
+                  {
+                    googleResponse.responses[0].webDetection.webEntities[0]
+                      .description
+                  }
+                </Text>
+              </View>
+            ) : null}
+            {googleResponse.responses[0].localizedObjectAnnotations !==
+            undefined ? (
+              <View>
+                <Text style={styles.objectGuess}>
+                  Main object:{" "}
+                  {
+                    googleResponse.responses[0].localizedObjectAnnotations[0]
+                      .name
+                  }
+                </Text>
+                <Text>
+                  Confidence:{" "}
+                  {(
+                    googleResponse.responses[0].localizedObjectAnnotations[0]
+                      .score * 100
+                  ).toFixed(0)}{" "}
+                  %
+                </Text>
+              </View>
+            ) : null}
+
             <View>
-              <Text style={styles.bestGuess}>
-                Our best guess is:
-                {
-                  googleResponse.responses[0].webDetection.webEntities[0]
-                    .description
-                }
-              </Text>
-            </View>
-            <View>
-              <Text style={styles.objectGuess}>
-                Main object:{" "}
-                {
-                  googleResponse.responses[0].localizedObjectAnnotations[0].name
-                }
-              </Text>
-              <Text>
-                Confidence: {(googleResponse.responses[0].localizedObjectAnnotations[0].score*100).toFixed(0)} %
-              </Text>
-            </View>
-            <View>
-              <Text>
-                Likely:{" "}
-                {googleResponse.responses[0].labelAnnotations[0].description}
-              </Text>
-              <Text>
-              Likely:{" "}
-                {googleResponse.responses[0].labelAnnotations[1].description}
-              </Text>
-              <Text>
-              Likely:{" "}
-                {googleResponse.responses[0].labelAnnotations[2].description}
-              </Text>
+              {googleResponse.responses[0].labelAnnotations[0] !== undefined ? (
+                <Text>
+                  Likely:{" "}
+                  {googleResponse.responses[0].labelAnnotations[0].description}
+                </Text>
+              ) : null}
+              {googleResponse.responses[0].labelAnnotations[1] !== undefined ? (
+                <Text>
+                  Likely:{" "}
+                  {googleResponse.responses[0].labelAnnotations[1].description}
+                </Text>
+              ) : null}
+              {googleResponse.responses[0].labelAnnotations[2] !== undefined ? (
+                <Text>
+                  Likely:{" "}
+                  {googleResponse.responses[0].labelAnnotations[2].description}
+                </Text>
+              ) : null}
             </View>
 
             <TouchableOpacity>
@@ -225,6 +242,8 @@ const IdentifyBird = ({ navigation }) => {
               ></CustomButton>
             </TouchableOpacity>
           </View>
+        ) : (
+          false
         )}
 
         {!image && (
