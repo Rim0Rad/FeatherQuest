@@ -17,13 +17,20 @@ export default Maps = ({ navigation }) => {
   const [loadingMarkers, setLoadingMarkers] = useState(true);
   const [mapCentered, setMapCentered] = useState(false);
   const { globalUser } = useContext(UserContext);
+  const [region,setRegion] = useState({})
 
-  const region = {
-    latitude: Number(globalUser.coordinates[0]),
-    longitude: Number(globalUser.coordinates[1]),
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
-  };
+  useEffect(() => {
+    if (globalUser !== null) {
+      setRegion({
+        latitude: Number(globalUser.coordinates[0]),
+        longitude: Number(globalUser.coordinates[1]),
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      });
+    }
+  },[globalUser])
+
+
 
   //Fetch sightings data
   useEffect(() => {

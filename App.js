@@ -29,7 +29,7 @@ function App() {
   const [fontsLoaded] = useFonts({
     Virgil: require("./assets/fonts/Virgil.ttf"),
   });
-  const [globalUser, setGlobalUser] = useState();
+  const [globalUser, setGlobalUser] = useState(null);
 
   useEffect(() => {
     async function prepare() {

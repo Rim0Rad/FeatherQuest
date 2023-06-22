@@ -15,7 +15,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow FeatherQuest to access your location while using the app.",
+        "NSLocationAlwaysUsageDescription": "Allow FeatherQuest to access your location even when the app is in the background.",
+        "NSLocationWhenInUseUsageDescription": "Allow FeatherQuest to access your location while using the app."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -32,15 +37,15 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends.",
           "cameraPermission": "The app accesses your camera to let you share them with your friends."
-        }],
-        [
+        }
+      ],
+      [
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
           "isIosBackgroundLocationEnabled": true,
           "isAndroidBackgroundLocationEnabled": true
      
-        
         }
       ]
       ]

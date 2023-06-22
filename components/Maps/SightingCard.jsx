@@ -9,26 +9,26 @@ import Modal from "react-native-modal";
 export default SightingCard = ( { sightedBird, navigation, sighting, modalVisible, setModalVisible, marker,  mapCentered}) => {
    
    
-    function cacheImages(images) {
-        return images.map(image => {
-          if (typeof image === 'string') {
-            return Image.prefetch(image);
-          } else {
-            return Asset.fromModule(image).downloadAsync();
-          }
-        });
-    }
+    // function cacheImages(images) {
+    //     return images.map(image => {
+    //       if (typeof image === 'string') {
+    //         return Image.prefetch(image);
+    //       } else {
+    //         return Asset.fromModule(image).downloadAsync();
+    //       }
+    //     });
+    // }
 
-    useEffect( () => {
-        try {
-            const imageAssets = cacheImages([
-                sightedBird.bird_image_url,
-            ]);
-            Promise.all([...imageAssets, ])
-        } catch (err) {
-            console.log(err)
-        }
-    }, [])
+    // useEffect( () => {
+    //     try {
+    //         const imageAssets = cacheImages([
+    //             sightedBird.bird_image_url,
+    //         ]);
+    //         Promise.all([...imageAssets, ])
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }, [])
 
     //Navigate to Sighting
     function handlePress () {
@@ -43,8 +43,8 @@ export default SightingCard = ( { sightedBird, navigation, sighting, modalVisibl
             <View style={{width: 200, height: 200, overflow: "hidden"}}>
                 <Modal isVisible={true} 
                         coverScreen={false}
-                        backdropColor={"white"}
-                        backdropOpacity={1}
+                        // backdropColor={"white"}
+                        backdropOpacity={0}
                         
                         children={
                             <View style={{backgroundColor: "#5e7975", borderRadius: 20, marginTop: 100, borderWidth: 3, borderColor: "#A18276", height: 70}}>
@@ -53,13 +53,13 @@ export default SightingCard = ( { sightedBird, navigation, sighting, modalVisibl
                                 </Text>
                             </View>
                         }
-                        customBackdrop={ 
-                            <View style={{width: 200, height: 200, backgroundColor: "#5e7975", borderRadius: 10,borderWidth: 2, borderColor:  "#A18276"}}>
-                                <Text style={{width: 2, marginTop: -40, textAlign: 'center', width: 200, height: 200}}>
-                                    <Image style={{ borderWidth: 2, height: 150, width: 180}} source={{uri: sightedBird.bird_image_url}}></Image>
-                                </Text>
-                            </View>
-                        }
+                        // customBackdrop={ 
+                        //     <View style={{width: 200, height: 200, backgroundColor: "#5e7975", borderRadius: 10,borderWidth: 2, borderColor:  "#A18276"}}>
+                        //         <Text style={{width: 2, marginTop: -40, textAlign: 'center', width: 200, height: 200}}>
+                        //             <Image style={{ borderWidth: 2, height: 150, width: 180}} source={{uri: sightedBird.bird_image_url}}></Image>
+                        //         </Text>
+                        //     </View>
+                        // }
                     >
                 </Modal>
             </View>

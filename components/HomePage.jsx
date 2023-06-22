@@ -21,15 +21,19 @@ export default HomePage = ({ navigation, route }) => {
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", () => true);
-
-    getUserLocation().then((location) => {
-      setUserLocation([...location]);
-      setLoadingUserLocation(false);
-    });
-
-    if (auth.currentUser) {
-      getUserData(auth.currentUser.uid)
-        .then((data) => {
+  
+    const fetchData = async () => {
+      try {
+        const location = await getUserLocation();
+        setUserLocation([...location]);
+        setLoadingUserLocation(false);
+      } catch (err) {
+        console.log(err);
+      }
+  
+      if (auth.currentUser) {
+        try {
+          const data = await getUserData(auth.currentUser.uid);
           setGlobalUser({
             userId: auth.currentUser.uid,
             first_name: data.first_name,
@@ -41,11 +45,13 @@ export default HomePage = ({ navigation, route }) => {
             coordinates: [...userLocation],
           });
           setLoadingUser(false);
-        })
-        .catch((err) => {
+        } catch (err) {
           console.log(err);
-        });
-    }
+        }
+      }
+    };
+  
+    fetchData();
   }, [loadingUserLocation]);
   if (loadingUser) {
     return (
@@ -66,6 +72,7 @@ export default HomePage = ({ navigation, route }) => {
             onPress={() => {
               navigation.navigate("SightingList");
             }}
+
           >
             <Text style={textStyles.buttonText}>Start Twitching!</Text>
           </TouchableOpacity>
